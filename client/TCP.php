@@ -11,7 +11,10 @@ go(function(){
     if (!$client->connect('127.0.0.1',9501, 0.5)) {
         echo "connect failed: Error:{$client->errCode}\n";
     }
-    $client->send("hello world\n");
+
+    fwrite(STDOUT, "请输入:");
+    $res = fgets(STDIN);
+    $client->send($res);
     echo $client->recv();
     $client->close();
 });
