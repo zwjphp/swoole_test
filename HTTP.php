@@ -8,22 +8,25 @@
 
 class HTTP
 {
-    private $server = null;
+    private $http = null;
 
     public function __construct()
     {
-        $this->server = new Swoole\Http\Server('0.0.0.0', 9503);
-        // $this->server->set([
-        //     'worker_num' => 4,
-        //     'max_request' => 50,
-        // ]);
-        $this->server->on('Request', [$this, "onRequest"]);
+        $this->http = new Swoole\Http\Server('0.0.0.0', 9503);
+        $this->http->set([
+            'enable_static_handler' => true,
+            'document_root' => "/home/work/php/swoole_test/static",
+        ]);
+        $this->http->on('Request', [$this, "onRequest"]);
 
         //启动服务器
-        $this->server->start();
+        $this->http->start();
     }
 
     public function onRequest($request, $response) {
+        var_dump($request->get, $response->post);
+
+        
         $response->header('Content-Type', 'text/html; charset=utf-8');
         $response->end('<h1>Hello Swoole.#'. rand(1000, 2000).'</h1>');
     }
