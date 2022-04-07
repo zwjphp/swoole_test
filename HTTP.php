@@ -24,9 +24,9 @@ class HTTP
     }
 
     public function onRequest($request, $response) {
-        var_dump($request->get, $response->post);
+        var_dump($request, $response);
 
-        
+
         $response->header('Content-Type', 'text/html; charset=utf-8');
         $response->end('<h1>Hello Swoole.#'. rand(1000, 2000).'</h1>');
     }
