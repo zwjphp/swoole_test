@@ -24,7 +24,7 @@ class HTTP
     }
 
     public function onRequest($request, $response) {
-        var_dump($request['get'], $response['post']);
+        var_dump($request->$_GET);
 
 
         $response->header('Content-Type', 'text/html; charset=utf-8');
