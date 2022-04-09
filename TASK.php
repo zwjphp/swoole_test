@@ -52,7 +52,7 @@ class TASK
 
     public function onTask($ws, $task_id, $reactor_id, $data) {
         var_dump($data);
-        $ws->onFinish($data);
+        $ws->Finish($data);
     }
 
 
