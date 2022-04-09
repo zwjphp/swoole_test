@@ -12,7 +12,7 @@ class TASK
 
     public function __construct()
     {
-        $this->tcp = new Swoole\Server('127.0.0.1', 9502);
+        $this->tcp = new Swoole\WebSocket\Server('0.0.0.0', 9502);
         $this->tcp->set([
             'task_worker_num' => 4
         ]);
