@@ -34,7 +34,7 @@ class TASK
         echo "Message: {$frame->data}\n";
         foreach ($ws -> connections as $fd) {
             if ($fd == $frame->fd) {
-                $ws->onTask([
+                $ws->task([
                     'fd' => $fd,
                     'message' => "我: {$frame -> data}"
                 ]);
