@@ -8,22 +8,22 @@
 
 class TASK
 {
-    private $tcp = null;
+    private $ws = null;
 
     public function __construct()
     {
-        $this->tcp = new Swoole\WebSocket\Server('0.0.0.0', 9502);
-        $this->tcp->set([
+        $this->ws = new Swoole\WebSocket\Server('0.0.0.0', 9502);
+        $this->ws->set([
             'task_worker_num' => 4
         ]);
-        $this->tcp->on('Open', [$this, "onOpen"]);
-        $this->tcp->on('Message', [$this, "onMessage"]);
-        $this->tcp->on('Close', [$this, "onClose"]);
-        $this->tcp->on('Task', [$this, "onTask"]);
-        $this->tcp->on('Finish', [$this, "onFinish"]);
+        $this->ws->on('Open', [$this, "onOpen"]);
+        $this->ws->on('Message', [$this, "onMessage"]);
+        $this->ws->on('Close', [$this, "onClose"]);
+        $this->ws->on('Task', [$this, "onTask"]);
+        $this->ws->on('Finish', [$this, "onFinish"]);
 
         //启动服务器
-        $this->tcp->start();
+        $this->ws->start();
     }
 
     public function onOpen($ws, $request) {
@@ -34,7 +34,7 @@ class TASK
         echo "Message: {$frame->data}\n";
         foreach ($ws -> connections as $fd) {
             if ($fd == $frame->fd) {
-                $ws->onTask([
+                $this->onTask([
                     'fd' => $fd,
                     'message' => "我: {$frame -> data}"
                 ]);
