@@ -51,6 +51,7 @@ class TASK
 
 
     public function onTask($ws, $task_id, $reactor_id, $data) {
+        sleep(10);
         var_dump($data);
         $ws->Finish($data);
     }
